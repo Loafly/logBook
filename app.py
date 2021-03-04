@@ -15,6 +15,7 @@ app = Flask(__name__)
 app.autoversion = True
 Autoversion(app)
 
+# client = MongoClient('mongodb://test:test@localhost', 27017)
 client = MongoClient('localhost', 27017)
 db = client.LogBook
 SECRET_KEY = 'SPARTA'
@@ -165,7 +166,6 @@ def logbook_get(email,num):
         for logs in log:
             if logs['num'] == int(num) and logs['email'] == email:
                 logbooks.append(logs)
-        print(logbooks)
         if not logbooks:
             return render_template('logbook.html',mine=mine)
         else:
@@ -201,7 +201,6 @@ def logbook_post():
             file.save(save_to)
         except:
             print('error')
-        print('hello')
         doc = {
             "email" : email,
             "num" : num,
